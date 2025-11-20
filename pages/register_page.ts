@@ -12,8 +12,8 @@ export class RegisterPage {
     readonly signupPageTitle: Locator;
 
 	// account creation form
-	readonly titleMrsRadio: Locator;
-    readonly titleMrRadio: Locator;
+	// readonly titleMrsRadio: Locator;
+    // readonly titleMrRadio: Locator;
 	readonly passwordInput: Locator;
 	readonly daysSelect: Locator;
 	readonly monthsSelect: Locator;
@@ -46,8 +46,6 @@ export class RegisterPage {
 		this.signupEmail = this.signupForm.getByPlaceholder('Email Address');
 		this.signupButton = page.getByRole('button', { name: 'Signup' });
 
-		this.titleMrsRadio = page.getByRole('radio', { name: 'Mrs.' });
-        this.titleMrRadio = page.getByRole('radio', { name: 'Mr.' });
 		this.passwordInput = page.getByRole('textbox', { name: 'Password *' });
 		this.daysSelect = page.locator('#days');
 		this.monthsSelect = page.locator('#months');
@@ -76,13 +74,15 @@ export class RegisterPage {
 		await this.signupButton.click();
 	}
 
-	async chooseTitle(radioButton: string) {
-		if (radioButton === 'Mrs.') {
-            await this.titleMrsRadio.check();
-        } else if (radioButton === 'Mr.') {
-            await this.titleMrRadio.check();
+	async chooseTitle(radioButtonValue: string) {
+        if(radioButtonValue == "Mr.") {
+            radioButtonValue = "Mr"
+        } else if (radioButtonValue == "Mrs.") {
+            radioButtonValue = "Mrs"
         }
+		await this.page.locator(`input[name="title"][value="${radioButtonValue}"]`).check();
 	}
+
 	async setPassword(password: string) {
 		await this.passwordInput.fill(password);
 	}

@@ -26,7 +26,7 @@ test('Successful register', async ({page}) => {
 
   await register.startSignup('test', email);
 
-  await register.chooseTitle("Mrs.");
+  await register.chooseTitle("Mr.");
   await register.setPassword('test123');
   await register.setDob('9', '7', '2005');
 
